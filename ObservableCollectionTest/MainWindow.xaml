@@ -1,0 +1,54 @@
+﻿<Window x:Class="ObservableCollectionTest.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:ObservableCollectionTest"
+        xmlns:Models="clr-namespace:ObservableCollectionTest.Models"
+        xmlns:ViewModels="clr-namespace:ObservableCollectionTest.ViewModels"
+        mc:Ignorable="d"
+        Title="MainWindow" Height="300" Width="500">
+    <Window.DataContext>
+        <ViewModels:StudentViewModel/>
+    </Window.DataContext>
+    
+    <Window.Resources>
+        <Models:StudentModelList x:Key="MyList" />
+    </Window.Resources>
+
+    <Grid>
+        <!--Row 설정-->
+        <Grid.RowDefinitions>
+            <RowDefinition Height="50"/>
+            <RowDefinition/>
+        </Grid.RowDefinitions>
+
+        <Label Grid.Row="0" FontWeight="Bold" FontSize="20" Content="ObservableCollection Example" VerticalContentAlignment="Center" 
+               HorizontalContentAlignment="Center"> </Label>
+
+        <StackPanel Grid.Row="1" Orientation="Horizontal">
+            <!--ListView 데이터 바인딩-->
+            <ListView Width="250" Name="uiLv_Main" ItemsSource="{Binding Items}">
+                <ListView.View>
+                    <GridView AllowsColumnReorder="true">
+                        <GridViewColumn DisplayMemberBinding="{Binding Name}" Width="80">
+                            <GridViewColumnHeader Content="Name" Width="Auto" />
+                        </GridViewColumn>
+                        <GridViewColumn DisplayMemberBinding="{Binding Age}" Width="80">
+                            <GridViewColumnHeader Content="Age" Width="Auto" />
+                        </GridViewColumn>
+                        <GridViewColumn DisplayMemberBinding="{Binding Grade}" Width="80">
+                            <GridViewColumnHeader Content="Grade" Width="Auto" />
+                        </GridViewColumn>
+                    </GridView>
+                </ListView.View>
+            </ListView>
+
+            <!--ListBox 데이터 바인딩-->
+            <ListBox Width="250" x:Name="uiLb_Main" ItemsSource="{Binding Source={StaticResource MyList}}" DisplayMemberPath="Name">
+            </ListBox>
+        </StackPanel>
+    </Grid>
+
+    
+</Window>
